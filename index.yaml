@@ -1,0 +1,11 @@
+apiVersion: v1
+entries:
+  hello-cammis-data:
+  - apiVersion: v1
+    created: 2019-02-08T10:50:08.114872-05:00
+    digest: bef2d411b00ade8aa6eab90662b5e370d64aa650d8f83f1bd22ab99033e160c8
+    name: hello-cammis-data
+    urls:
+    - https://ca-mmis.github.io/cammis-helm/hello-cammis-data-1.0.0.tgz
+    version: 1.0.0
+generated: 2019-02-08T10:50:08.104341-05:00
