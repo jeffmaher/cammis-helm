@@ -1,11 +1,19 @@
 apiVersion: v1
 entries:
+  hello-cammis:
+  - apiVersion: v1
+    created: 2019-02-10T09:54:30.357819-05:00
+    digest: 52afc7642cb87101e59a90e20e3cec307800592e9b93557190cf0c5aa2f5dab8
+    name: hello-cammis
+    urls:
+    - https://ca-mmis.github.io/cammis-helm/hello-cammis-3.0.0.tgz
+    version: 3.0.0
   hello-cammis-data:
   - apiVersion: v1
-    created: 2019-02-08T10:50:08.114872-05:00
-    digest: bef2d411b00ade8aa6eab90662b5e370d64aa650d8f83f1bd22ab99033e160c8
+    created: 2019-02-10T09:54:30.358574-05:00
+    digest: 70981c3c8c000818ffaf8596da201570ef3da93edee290795d141eb5d870bfe4
     name: hello-cammis-data
     urls:
     - https://ca-mmis.github.io/cammis-helm/hello-cammis-data-1.0.0.tgz
     version: 1.0.0
-generated: 2019-02-08T10:50:08.104341-05:00
+generated: 2019-02-10T09:54:30.352953-05:00
