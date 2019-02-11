@@ -19,6 +19,11 @@ spec:
           image: cadhcscammis/{{.Chart.Name}}:{{.Chart.Version}}
           ports:
             - containerPort: {{.Values.hello_cammis.port}}
+          env:
+            - name: HELLO_CAMMIS_DATA_HOST
+              value: "hello-cammis-data-service"
+            - name: HELLO_CAMMIS_DATA_PORT
+              value: "8000"
       livenessProbe:
         initialDelaySeconds: 10
         periodSeconds: 60
