@@ -35,12 +35,12 @@ _Note: If this approach is appetizing to the team, this part would be automated 
 
 This packages a chart and makes a it referenceable to anyone that has added `https://ca-mmis.github.io/cammis-helm` as an Helm Chart Repo, without pulling down the source code directly. This also makes it really easy for folks to reference different versions.
 
-For this example, we'll use the [hello-cammis-data Helm chart](charts/hello-cammis-data).
-
-1. Clone this Git repo, but don't move into it yet (i.e. stay in the directory it is cloned to). If it's already cloned, switch it to the `master` branch.
-1. Package the chart: `helm package cammis-helm/charts/hello-cammis-data`.
+1. Clone this Git repo, but don't move into it yet (i.e. stay in the directory it is cloned to). If it's already cloned, switch it to the `master` branch and move up to its parent directory.
+1. Get dependencies for the chart you're going to package (as a heads up, these will download to a directory called `charts` inside the directory referenced): `helm dep up cammis-helm/charts/<chart>`
+1. Package the chart: `helm package cammis-helm/charts/<chart>`.
+1. Delete the downloaded dependencies: `rm -rf cammis-helm/charts/<chart>/charts`
 1. Change the Git repo to the `gh-pages`: `git -C cammis-helm checkout gh-pages`
 1. Move the produced `tgz` file into the Git repo.
 1. Re-index the cammis-helm repo: `helm repo index cammis-helm --url https://ca-mmis.github.io/cammis-helm`
-1. Commit and push all the changes in the `gh-pages` branch: `git -C cammis-helm commit -a -m "Added hello-cammis-data 1.0.0"`
+1. Commit and push all the changes in the `gh-pages` branch: `git -C cammis-helm add . && git -C cammis-helm commit -m "Added <chart> <version>"`
 

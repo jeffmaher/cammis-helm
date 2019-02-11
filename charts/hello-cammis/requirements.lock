@@ -1,0 +1,6 @@
+dependencies:
+- name: hello-cammis-data
+  repository: https://ca-mmis.github.io/cammis-helm
+  version: 1.0.0
+digest: sha256:8108694ea6e2e0274c111c2636d9fcd83230cda023d984d15eea9e2fb59169d5
+generated: 2019-02-10T10:10:13.097382-05:00

@@ -1,2 +1,5 @@
 hello_cammis:
   port: 3000
+tags:
+  localdev: false
+
