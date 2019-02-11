@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}
+  labels:
+    app: {{.Chart.Name}}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}
+    spec:
+      containers:
+        - name: {{.Chart.Name}}
+          image: cadhcscammis/{{.Chart.Name}}:{{.Chart.Version}}
+          ports:
+            - containerPort: {{.Values.hello_cammis.port}}
+          env:
+            - name: HELLO_CAMMIS_DATA_HOST
+              value: "hello-cammis-data-service"
+            - name: HELLO_CAMMIS_DATA_PORT
+              value: "8000"
+      livenessProbe:
+        initialDelaySeconds: 10
+        periodSeconds: 60
+        timeoutSeconds: 2
+        failureThreshold: 5
+        successThreshold: 1
+        httpGet:
+          path: /health
+          port: {{.Values.hello_cammis.port}}
+      # readinessProbe:
+      #   initialDelaySeconds: 10
+      #   periodSeconds: 60
+      #   timeoutSeconds: 2
+      #   failureThreshold: 5
+      #   successThreshold: 1
+      #   httpGet:
+      #     path: /ready
+      #     port: {{.Values.hello_cammis.port}}
