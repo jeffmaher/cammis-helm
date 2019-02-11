@@ -3,4 +3,4 @@ dependencies:
     version: 1.0.0
     repository: https://ca-mmis.github.io/cammis-helm
     tags:
-      - localdev
+      - localDev

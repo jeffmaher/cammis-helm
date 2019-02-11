@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-deploy
+  name: {{ .Values.global.helloCammisData.name }}-deploy
   labels:
-    app: {{ .Chart.Name }}
+    app: {{ .Values.global.helloCammisData.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: {{ .Values.global.helloCammisData.name }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: {{ .Values.global.helloCammisData.name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-pod
-          image: cadhcscammis/{{.Chart.Name}}:{{.Chart.Version}}
+        - name: {{ .Values.global.helloCammisData.name }}-pod
+          image: cadhcscammis/hello-cammis-data:{{.Chart.Version}}
           ports:
-            - containerPort: {{.Values.hello_cammis_data.port}}
+            - containerPort: {{ .Values.global.helloCammisData.containerPort }}
       livenessProbe:
         initialDelaySeconds: 10
         periodSeconds: 60
@@ -27,7 +27,7 @@ spec:
         successThreshold: 1
         httpGet:
           path: /alive
-          port: {{.Values.hello_cammis_data.port}}
+          port: {{ .Values.global.helloCammisData.containerPort }}
       readinessProbe:
         initialDelaySeconds: 10
         periodSeconds: 60
@@ -36,4 +36,5 @@ spec:
         successThreshold: 1
         httpGet:
           path: /ready
-          port: {{.Values.hello_cammis_data.port}}
+          port: {{ .Values.global.helloCammisData.containerPort }}
+

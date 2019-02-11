@@ -1,2 +1,5 @@
-hello_cammis_data:
-  port: 8000
+global:
+    helloCammisData:
+        containerPort: 8000
+        servicePort: 8000
+        name: hello-cammis-data

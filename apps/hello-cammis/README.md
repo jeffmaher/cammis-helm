@@ -31,7 +31,7 @@ This chart can be used to enable local development of hello-cammis by install al
 1. Enable Kubernetes
 1. Install Helm
 1. Install Helm dependencies: `helm dep up cammis-helm/hello-cammis`
-1. Install all the dependencies: `helm install hello-cammis -n hc --set tags.localdev=true`
+1. Install all the dependencies: `helm install hello-cammis -n hc --set tags.localDev=true`
 1. For your local installation of the hello-cammis code, set the following for environment variables:
     - `HELLO_CAMMIS_DATA_HOST`: `localhost`
     - `HELLO_CAMMIS_DATA_PORT`: `8000`

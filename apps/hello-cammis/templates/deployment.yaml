@@ -1,29 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Chart.Name}}
+
+  name: {{.Values.global.helloCammis.name}}-deploy
   labels:
-    app: {{.Chart.Name}}
+    app: {{.Values.global.helloCammis.name}}
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: {{.Chart.Name}}
+      app: {{.Values.global.helloCammis.name}}
   template:
     metadata:
       labels:
-        app: {{.Chart.Name}}
+        app: {{.Values.global.helloCammis.name}}
     spec:
       containers:
-        - name: {{.Chart.Name}}
-          image: cadhcscammis/{{.Chart.Name}}:{{.Chart.Version}}
+        - name: {{.Values.global.helloCammis.name}}
+          image: cadhcscammis/hello-cammis:{{.Chart.Version}}
           ports:
-            - containerPort: {{.Values.hello_cammis.port}}
+            - containerPort: {{ .Values.global.helloCammis.containerPort }}
           env:
             - name: HELLO_CAMMIS_DATA_HOST
+              {{ if .Values.global.helloCammisData }}
+              value: '{{ index .Values.global.helloCammisData.name }}-service'
+              {{ else }}
               value: "hello-cammis-data-service"
+              {{ end }}
             - name: HELLO_CAMMIS_DATA_PORT
+              {{ if .Values.global.helloCammisData }}
+              value: '{{ .Values.global.helloCammisData.servicePort }}'
+              {{ else }}
               value: "8000"
+              {{ end }}
+            - name: PORT
+              value: "{{ .Values.global.helloCammis.containerPort }}"
       livenessProbe:
         initialDelaySeconds: 10
         periodSeconds: 60
@@ -32,7 +43,7 @@ spec:
         successThreshold: 1
         httpGet:
           path: /health
-          port: {{.Values.hello_cammis.port}}
+          port: {{ .Values.global.helloCammis.containerPort }}
       # readinessProbe:
       #   initialDelaySeconds: 10
       #   periodSeconds: 60
@@ -41,4 +52,4 @@ spec:
       #   successThreshold: 1
       #   httpGet:
       #     path: /ready
-      #     port: {{.Values.hello_cammis.port}}
+      #     port: {{ .Values.global.helloCammis.containerPort }}
