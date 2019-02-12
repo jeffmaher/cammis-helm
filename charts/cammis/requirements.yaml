@@ -1,7 +1,0 @@
-dependencies:
-  - name: hello-cammis-data
-    version: 1.0.0
-    repository: https://ca-mmis.github.io/cammis-helm
-  - name: hello-cammis
-    version: 3.0.0
-    repository: https://ca-mmis.github.io/cammis-helm
