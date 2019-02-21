@@ -103,9 +103,9 @@ infrastructure-private: 5.1.0
 cammis: 1.0.0
 ```
 
-When the `master` branch is updated, CircleCI will do a Helm installation of the indicated CA-MMIS manifest.
+When the `master` branch is updated, CircleCI will do a Helm installation or upgrade of the indicated CA-MMIS manifest, depending on whether an environment is new or existing.
 
-From here, an admin or CI job would run a simple Helm command that would either install or upgrade an environment. In the case of an initial install, this command might be an example:
+In the case of an initial install, this command might be an example:
 
 `helm install cammis:1.0.0 -n cammis`
 
