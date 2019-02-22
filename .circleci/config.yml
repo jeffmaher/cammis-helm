@@ -7,7 +7,9 @@ job_setup: &job_setup
   docker:
     - image: cadhcscammis/infrastructure-private:PAT-163
   environment:
-    APP_PATH: /cammis-helm/apps
+    GIT_REPO_PATH: /cammis-helm
+    CHART_SRC_PATH: ${GIT_REPO_PATH}/apps
+
   working_directory: /ci_job
 
 add_helm_repo: &add_helm_repo
@@ -30,12 +32,20 @@ jobs:
       - <<: *add_helm_repo
       - run:
           name: Update dependencies
-          command: helm dep up ${APP_PATH}/hello-cammis-data
+          command: helm dep up ${CHART_SRC_PATH}/hello-cammis-data
       - run:
           name: Build Chart
-          command: helm package ${APP_PATH}/hello-cammis-data
-      - run: pwd
-      - run: ls
+          command: helm package ${CHART_SRC_PATH}/hello-cammis-data
+      - run:
+          name: Switch Git repo to Helm repo
+          command: git -C ${GIT_REPO_PATH} checkout gh-pages
+      - run:
+          name: Move package into Helm repo
+          command: mv *.tgz ${GIT_REPO_PATH}/.
+      - run:
+          name: Re-index Helm Repo
+          command: helm index ${GIT_REPO_PATH}
+      - run: ls -l ${GIT_REPO_PATH}
 
 
 # --- WORKFLOWS ---
