@@ -22,6 +22,16 @@ master_commits_only: &master_commits_only
     branches:
       only: master
 
+move_package_into_helm_repo: &move_package_into_helm_repo
+  run:
+    name: Move package into Helm repo
+    command: mv *.tgz ${GIT_REPO_PATH}/.
+
+reindex_helm_repo: &reindex_helm_repo
+  run:
+    name: Re-index Helm Repo
+    command: helm index ${GIT_REPO_PATH}
+
 # ---- JOBS ---
 version: 2
 jobs:
@@ -39,12 +49,8 @@ jobs:
       - run:
           name: Switch Git repo to Helm repo
           command: git -C ${GIT_REPO_PATH} checkout gh-pages
-      - run:
-          name: Move package into Helm repo
-          command: mv *.tgz ${GIT_REPO_PATH}/.
-      - run:
-          name: Re-index Helm Repo
-          command: helm index ${GIT_REPO_PATH}
+      - <<: *move_package_into_helm_repo
+      - <<: *reindex_helm_repo
       - run: ls -l ${GIT_REPO_PATH}
 
 
