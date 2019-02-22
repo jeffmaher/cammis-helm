@@ -4,6 +4,7 @@ job_setup: &job_setup
     - image: cadhcscammis/infrastructure-private:PAT-163
   environment:
     APP_PATH: cammis-helm/apps
+  working_directory: /
 
 add_helm_repo: &add_helm_repo
   run:
@@ -23,6 +24,8 @@ jobs:
     <<: *job_setup
     steps:
       - checkout
+      - run: pwd
+      - run: ls
       - <<: *add_helm_repo
       - run:
           name: Update dependencies
