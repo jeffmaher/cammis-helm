@@ -37,5 +37,5 @@ workflows:
   version: 2
   master_push:
     jobs:
-      build_hello_cammis_data:
-        <<: *master_commits_only
+      - build_hello_cammis_data:
+          <<: *master_commits_only
