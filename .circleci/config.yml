@@ -1,4 +1,8 @@
 # --- REUSUABLE CHUNKS ---
+clone: &clone
+  checkout:
+    path: /cammis-helm
+
 job_setup: &job_setup
   docker:
     - image: cadhcscammis/infrastructure-private:PAT-163
@@ -23,9 +27,7 @@ jobs:
   build_hello_cammis_data:
     <<: *job_setup
     steps:
-      - checkout
-      - run: pwd
-      - run: ls
+      - <<: *clone
       - <<: *add_helm_repo
       - run:
           name: Update dependencies
