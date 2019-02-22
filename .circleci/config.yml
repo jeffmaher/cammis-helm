@@ -8,7 +8,7 @@ job_setup: &job_setup
     - image: cadhcscammis/infrastructure-private:PAT-163
   environment:
     GIT_REPO_PATH: /cammis-helm
-    CHART_SRC_PATH: ${GIT_REPO_PATH}/apps
+    CHART_SRC_PATH: /cammis-helm/apps
 
   working_directory: /ci_job
 
