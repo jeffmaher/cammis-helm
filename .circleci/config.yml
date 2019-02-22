@@ -9,13 +9,14 @@ job_setup: &job_setup
   environment:
     GIT_REPO_PATH: /cammis-helm
     CHART_SRC_PATH: /cammis-helm/apps
+    HELM_REPO_URL: https://ca-mmis.github.io/cammis-helm
 
   working_directory: /ci_job
 
 add_helm_repo: &add_helm_repo
   run:
     name: Add CA-MMIS Helm Repo
-    command: helm repo add cammis https://ca-mmis.github.io/cammis-helm
+    command: helm repo add cammis ${HELM_REPO_URL}
 
 master_commits_only: &master_commits_only
   filters:
@@ -30,7 +31,7 @@ move_package_into_helm_repo: &move_package_into_helm_repo
 reindex_helm_repo: &reindex_helm_repo
   run:
     name: Re-index Helm Repo
-    command: helm index ${GIT_REPO_PATH}
+    command: helm repo index ${GIT_REPO_PATH} --url ${HELM_REPO_URL}
 
 # ---- JOBS ---
 version: 2
