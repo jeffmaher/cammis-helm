@@ -33,6 +33,16 @@ reindex_helm_repo: &reindex_helm_repo
     name: Re-index Helm Repo
     command: helm repo index ${GIT_REPO_PATH} --url ${HELM_REPO_URL}
 
+remove_leftover_apps_dir: &remove_leftover_apps_dir
+  run:
+    name: Remove leftover apps dir
+    command: rm -rf ${GIT_REPO_PATH}/apps
+
+switch_to_helm_repo_branch: &switch_to_helm_repo_branch
+  run:
+    name: Switch Git repo to Helm repo
+    command: git -C ${GIT_REPO_PATH} checkout gh-pages
+
 # ---- JOBS ---
 version: 2
 jobs:
@@ -47,12 +57,10 @@ jobs:
       - run:
           name: Build Chart
           command: helm package ${CHART_SRC_PATH}/hello-cammis-data
-      - run:
-          name: Switch Git repo to Helm repo
-          command: git -C ${GIT_REPO_PATH} checkout gh-pages
+      - <<: *switch_to_helm_repo_branch
+      - <<: *remove_leftover_apps_dir
       - <<: *move_package_into_helm_repo
       - <<: *reindex_helm_repo
-      - run: ls -l ${GIT_REPO_PATH}
 
 
 # --- WORKFLOWS ---
