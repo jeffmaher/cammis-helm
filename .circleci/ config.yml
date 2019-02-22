@@ -1,0 +1,41 @@
+# --- REUSUABLE CHUNKS ---
+job_setup: &job_setup
+  docker:
+    - image: cadhcscammis/infrastructure-private:PAT-163
+  environment:
+    APP_PATH: cammis-helm/apps
+
+add_helm_repo: &add_helm_repo
+  run:
+    name: Add CA-MMIS Helm Repo
+    command: helm repo add cammis https://ca-mmis.github.io/cammis-helm
+
+master_commits_only: &master_commits_only
+  filters:
+    branches:
+      only: master
+
+
+# ---- JOBS ---
+version: 2
+jobs:
+  build_hello_cammis_data:
+    <<: *job_setup
+    steps:
+      - checkout
+      - <<: *add_helm_repo
+      - run:
+          name: Update dependencies
+          command: helm dep up ${APP_PATH}/hello-cammis-data
+      - run:
+          name: Build Chart
+          command: helm package ${APP_PATH}/hello-cammis-data
+
+
+# --- WORKFLOWS ---
+workflows:
+  version: 2
+  master_push:
+    jobs:
+      build_hello_cammis_data:
+        <<: *master_commits_only
