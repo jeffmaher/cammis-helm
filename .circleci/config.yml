@@ -61,6 +61,9 @@ jobs:
       - <<: *remove_leftover_apps_dir
       - <<: *move_package_into_helm_repo
       - <<: *reindex_helm_repo
+      - run:
+          name: Push Helm Repo
+          command: git push
 
 
 # --- WORKFLOWS ---
