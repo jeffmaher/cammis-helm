@@ -7,8 +7,8 @@ job_setup: &job_setup
   docker:
     - image: cadhcscammis/infrastructure-private:PAT-163
   environment:
-    APP_PATH: cammis-helm/apps
-  working_directory: /
+    APP_PATH: /cammis-helm/apps
+  working_directory: /ci_job
 
 add_helm_repo: &add_helm_repo
   run:
@@ -19,7 +19,6 @@ master_commits_only: &master_commits_only
   filters:
     branches:
       only: master
-
 
 # ---- JOBS ---
 version: 2
@@ -35,6 +34,8 @@ jobs:
       - run:
           name: Build Chart
           command: helm package ${APP_PATH}/hello-cammis-data
+      - run: pwd
+      - run: ls
 
 
 # --- WORKFLOWS ---
